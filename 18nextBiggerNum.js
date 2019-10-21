@@ -42,20 +42,18 @@ const nextBigger = num => {
             if (newNum[i] < newNum[i+1]) {
                 flag = true;
                 numSmall = newNum[i];
-                console.log(numSmall);
                 // Mark location of numSmall
                 indexNumSmall = i;
-                console.log(indexNumSmall);
             }
         }
-    }
+    };
 
     if (flag) {
         nextStep();
         return newNum;
     } else {
         return -1;
-    }
+    };
 
     // Any digit beyond location of numSmall
     // sort() and then choose the smallest number to assign to numBig
@@ -63,7 +61,7 @@ const nextBigger = num => {
         let sectionNum = [];
         for (let i = newNum.length - 1; i > indexNumSmall; i--) {
             sectionNum.push(newNum[i]);
-        }
+        };
         sectionNum = sectionNum.sort();
 
         // Finding the next smallest number (to the right of the smallest)
@@ -75,15 +73,11 @@ const nextBigger = num => {
                     flag2 = true;
                 }
             }
-        }
+        };
 
         // Finding index of numBig
         let testNum = newNum.substring(indexNumSmall);
         indexNumBig = testNum.indexOf(numBig) + indexNumSmall;
-
-        console.log(numBig);
-        console.log(indexNumBig);
-
         // Swap positions of numSmall and numBig
         newNum = newNum.substring(0, indexNumSmall) + numBig + newNum.substring(indexNumSmall + 1, indexNumBig) + numSmall + newNum.substring(indexNumBig + 1);
         // Reorder all numbers after new position of numBig
@@ -92,17 +86,9 @@ const nextBigger = num => {
         console.log(reorder);
         // Attach front end of newNum (from beginning to numBig) to end of reorder
         newNum = newNum.substring(0, indexNumSmall + 1) + reorder;
-        
+        // Turn newNum back into an integer
         newNum = parseInt(newNum);
-
-        // if (newNum === num) {
-        //     return -1;
-        // } else {
-        //     console.log(newNum);
-        //     return newNum;
-        // }
-        return newNum
-    }
+    };
 };
 
 console.log(nextBigger(num));

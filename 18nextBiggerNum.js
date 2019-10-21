@@ -83,7 +83,6 @@ const nextBigger = num => {
         // Reorder all numbers after new position of numBig
         let reorder = newNum.substring(indexNumSmall + 1);
         reorder = reorder.split("").sort().join("");
-        console.log(reorder);
         // Attach front end of newNum (from beginning to numBig) to end of reorder
         newNum = newNum.substring(0, indexNumSmall + 1) + reorder;
         // Turn newNum back into an integer

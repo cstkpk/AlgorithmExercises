@@ -55,7 +55,7 @@ const letterCounter = (m, n) => {
     ];
 
     // If m or n are outside of the allowable integers (positive, inclusive between 1 and 1000000) return 0
-    if (m <= 0 || n <= 0 || m > 1000000 || n > 1000000 || m === NaN || n === NaN || m - Math.floor(m) !== 0 || n - Math.floor(n) !== 0 || m === true || m === false || n === true || n === false) {
+    if (m <= 0 || n <= 0 || m > 1000000 || n > 1000000 || m === NaN || n === NaN || m - Math.floor(m) !== 0 || n - Math.floor(n) !== 0 || m === true || m === false || n === true || n === false || typeof(m) === "string" || typeof(n) === "string") {
         return 0;
     }
 
@@ -170,6 +170,7 @@ const letterCounter = (m, n) => {
         }
     };
     console.log(string);
+    console.log(typeof("1"));
 
     const totalLetters = string.length;
     return totalLetters;
@@ -177,5 +178,5 @@ const letterCounter = (m, n) => {
 };
 
 // console.log(letterCounter(81811, 81819));
-console.log(letterCounter("cat", "9"));
+console.log(letterCounter("1", "9"));
 // Expected 315, gets 288

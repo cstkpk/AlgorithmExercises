@@ -54,8 +54,8 @@ const letterCounter = (m, n) => {
         {9: "ninety"}
     ];
 
-    // If m or n are outside of the allowable integers (positive, inclusive between 1 and 1000000) return 0
-    if (m <= 0 || n <= 0 || m > 1000000 || n > 1000000 || m === NaN || n === NaN || m - Math.floor(m) !== 0 || n - Math.floor(n) !== 0 || m === true || m === false || n === true || n === false || typeof(m) === "string" || typeof(n) === "string") {
+    // If m or n are outside of the allowable inputs (positive integers, inclusive between 1 and 1000000) return 0
+    if (m <= 0 || n <= 0 || m > 1000000 || n > 1000000 || m - Math.floor(m) !== 0 || n - Math.floor(n) !== 0 || typeof(m) !== "number" || typeof(n) !== "number") {
         return 0;
     }
 
@@ -73,45 +73,56 @@ const letterCounter = (m, n) => {
     }
 
     for (let i = m; i < m + difference + 1; i++) {
+        // One digit numbers
         if (i < 10) {
             string = string.concat(ones[i][i]);
         }
+        // Two digit numbers in the teens
         else if (i < 20) {
             string = string.concat(teens[i - 10][i - 10]);
         }
+        // Two digit numbers larger than the teens
         else if (i < 100) {
             let substr = i.toString();
             let ten = substr.charAt(0);
             let one = substr.charAt(1);
             string = string.concat(tens[ten][ten] + ones[one][one]);
         }
+        // Three digit numbers
         else if (i < 1000) {
             let substr = i.toString();
             let hundred = substr.charAt(0);
             let ten = substr.charAt(1);
             let one = substr.charAt(2);
+            // If the number in the tens place is a one, use the teens object
             if (ten == 1) {
                 string = string.concat(ones[hundred][hundred] + "hundred" + teens[one][one]);
             } else {
                 string = string.concat(ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
             };
         }
+        // Four digit numbers
         else if (i < 10000) {
             let substr = i.toString();
             let thousand = substr.charAt(0);
             let hundred = substr.charAt(1);
             let ten = substr.charAt(2);
             let one = substr.charAt(3);
+            // If there is a non-zero number in the hundreds place and the number in the tens place is a one
             if (ten == 1 && hundred != 0) {
                 string = string.concat(ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]);
+            // If there is zero in the hundreds place and the number in the tens place is a one
             } else if (ten == 1) {
                 string = string.concat(ones[thousand][thousand] + "thousand" + teens[one][one]);
+            // If there is a non-zero number in the hundreds place and the number in the tens place is not a one
             } else if (hundred != 0) {
                 string = string.concat(ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
+            // If there is a zero in the hundresd place and the number in the tens place is not a one
             } else {
                 string = string.concat(ones[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]);
             };
         }
+        // Five digit numbers
         else if (i < 100000) {
             let substr = i.toString();
             let tenthousand = substr.charAt(0);
@@ -127,9 +138,7 @@ const letterCounter = (m, n) => {
                 string = string.concat(teens[thousand][thousand] + "thousand" + teens[one][one]);
             } else if (tenthousand == 1) {
                 string = string.concat(teens[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]);
-            }
-
-            else if (ten == 1 && hundred != 0) {
+            } else if (ten == 1 && hundred != 0) {
                 string = string.concat(tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]);
             } else if (ten == 1) {
                 string = string.concat(tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + teens[one][one]);
@@ -139,6 +148,7 @@ const letterCounter = (m, n) => {
                 string = string.concat(tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]);
             };
         }
+        // Six digit numbers
         else if (i < 1000000) {
             let substr = i.toString();
             let hundredthousand = substr.charAt(0);
@@ -165,18 +175,16 @@ const letterCounter = (m, n) => {
                 string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]); 
             }
         }
+        // For the case of 1,000,000
         else if (i === 1000000) {
             string = string.concat("onemillion");
         }
     };
     console.log(string);
-    console.log(typeof("1"));
-
     const totalLetters = string.length;
     return totalLetters;
-
 };
 
 // console.log(letterCounter(81811, 81819));
-console.log(letterCounter("1", "9"));
+console.log(letterCounter(true, 10));
 // Expected 315, gets 288

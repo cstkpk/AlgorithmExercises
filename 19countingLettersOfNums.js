@@ -55,7 +55,7 @@ const letterCounter = (m, n) => {
     ];
 
     // If m or n are outside of the allowable integers (positive, inclusive between 1 and 1000000) return 0
-    if (m <= 0 || n <= 0 || m > 1000000 || n > 1000000 || m === NaN || n === NaN) {
+    if (m <= 0 || n <= 0 || m > 1000000 || n > 1000000 || m === NaN || n === NaN || m - Math.floor(m) !== 0 || n - Math.floor(n) !== 0 || m === true || m === false || n === true || n === false) {
         return 0;
     }
 
@@ -112,6 +112,51 @@ const letterCounter = (m, n) => {
                 string = string.concat(ones[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]);
             };
         }
+        else if (i < 100000) {
+            let substr = i.toString();
+            let tenthousand = substr.charAt(1);
+            let hundred = substr.charAt(2);
+            let ten = substr.charAt(3);
+            let one = substr.charAt(4);
+            if (ten == 1 && hundred != 0) {
+                string = string.concat(teens[tenthousand][tenthousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]);
+            } else if (ten == 1) {
+                string = string.concat(teens[tenthousand][tenthousand] + "thousand" + teens[one][one]);
+            } else if (hundred != 0) {
+                string = string.concat(teens[tenthousand][tenthousand] + "thousand" + ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
+            } else {
+                string = string.concat(teens[tenthousand][tenthousand] + "thousand" + tens[ten][ten] + ones[one][one]);
+            };
+        }
+        else if (i < 1000000) {
+            let substr = i.toString();
+            let hundredthousand = substr.charAt(0);
+            let tenthousand = substr.charAt(1);
+            let thousand = substr.charAt(2);
+            let hundred = substr.charAt(3);
+            let ten = substr.charAt(4);
+            let one = substr.charAt(5);
+            if (tenthousand == 1 && hundred != 0 && ten == 1) {
+                string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + teens[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]);
+            } else if (tenthousand == 1 && hundred != 0) {
+                string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + teens[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
+            } else if (tenthousand == 1 && ten == 1) {
+                string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + teens[thousand][thousand] + "thousand" + teens[one][one]);
+            } else if (tenthousand == 1) {
+                string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + teens[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]);
+            } else if (hundred != 0 && ten == 1) {
+                string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]); 
+            } else if (hundred != 0) {
+                string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]); 
+            } else if (ten == 1) {
+                string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + teens[one][one]); 
+            } else {
+                string = string.concat(ones[hundredthousand][hundredthousand] + "hundred" + tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]); 
+            }
+        }
+        else if (i === 1000000) {
+            string = string.concat("onemillion");
+        }
     };
     console.log(string);
 
@@ -120,4 +165,4 @@ const letterCounter = (m, n) => {
 
 };
 
-console.log(letterCounter(-1120, 1121));
+console.log(letterCounter(1, 10));

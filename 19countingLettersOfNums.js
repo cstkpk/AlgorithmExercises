@@ -18,7 +18,7 @@
 
 const letterCounter = (m, n) => {
     const ones = [
-        {0: "zero"},
+        {0: ""},
         {1: "one"},
         {2: "two"},
         {3: "three"},
@@ -28,6 +28,30 @@ const letterCounter = (m, n) => {
         {7: "seven"},
         {8: "eight"},
         {9: "nine"}
+    ];
+    const teens = [
+        {0: "ten"},
+        {1: "eleven"},
+        {2: "twelve"},
+        {3: "thirteen"},
+        {4: "fourteen"},
+        {5: "fifteen"},
+        {6: "sixteen"},
+        {7: "seventeen"},
+        {8: "eighteen"},
+        {9: "nineteen"}
+    ];
+    const tens = [
+        {0: ""},
+        {1: ""},
+        {2: "twenty"},
+        {3: "thirty"},
+        {4: "forty"},
+        {5: "fifty"},
+        {6: "sixty"},
+        {7: "seventy"},
+        {8: "eighty"},
+        {9: "ninety"}
     ];
 
     let string = "";
@@ -46,8 +70,18 @@ const letterCounter = (m, n) => {
     console.log(`M: ${m} N: ${n}`)
 
     for (let i = m; i < m + difference + 1; i++) {
-        string = string.concat(ones[i][i]);
-        console.log(ones[i])
+        if (i < 10) {
+            string = string.concat(ones[i][i]);
+        }
+        else if (i < 20) {
+            string = string.concat(teens[i - 10][i - 10]);
+        }
+        else if (i < 100) {
+            let substr = i.toString();
+            let ten = substr.charAt(0);
+            let one = substr.charAt(1);
+            string = string.concat(tens[ten][ten] + ones[one][one]);
+        }
     };
     console.log(string);
 
@@ -56,4 +90,4 @@ const letterCounter = (m, n) => {
 
 };
 
-console.log(letterCounter(7, 10));
+console.log(letterCounter(27, 37));

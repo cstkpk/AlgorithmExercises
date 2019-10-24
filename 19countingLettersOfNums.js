@@ -66,8 +66,6 @@ const letterCounter = (m, n) => {
         m = n;
         n = swap;
     }
-    console.log(difference);
-    console.log(`M: ${m} N: ${n}`)
 
     for (let i = m; i < m + difference + 1; i++) {
         if (i < 10) {
@@ -82,6 +80,17 @@ const letterCounter = (m, n) => {
             let one = substr.charAt(1);
             string = string.concat(tens[ten][ten] + ones[one][one]);
         }
+        else if (i < 1000) {
+            let substr = i.toString();
+            let hundred = substr.charAt(0);
+            let ten = substr.charAt(1);
+            let one = substr.charAt(2);
+            if (ten == 1) {
+                string = string.concat(ones[hundred][hundred] + "hundred" + teens[one][one]);
+            } else {
+                string = string.concat(ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
+            }
+        }
     };
     console.log(string);
 
@@ -90,4 +99,4 @@ const letterCounter = (m, n) => {
 
 };
 
-console.log(letterCounter(27, 37));
+console.log(letterCounter(99, 121));

@@ -54,6 +54,11 @@ const letterCounter = (m, n) => {
         {9: "ninety"}
     ];
 
+    // If m or n are outside of the allowable integers (positive, inclusive between 1 and 1000000) return 0
+    if (m <= 0 || n <= 0 || m > 1000000 || n > 1000000 || m === NaN || n === NaN) {
+        return 0;
+    }
+
     let string = "";
     let difference;
     // If m is smaller than n, the difference is n - m
@@ -89,7 +94,23 @@ const letterCounter = (m, n) => {
                 string = string.concat(ones[hundred][hundred] + "hundred" + teens[one][one]);
             } else {
                 string = string.concat(ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
-            }
+            };
+        }
+        else if (i < 10000) {
+            let substr = i.toString();
+            let thousand = substr.charAt(0);
+            let hundred = substr.charAt(1);
+            let ten = substr.charAt(2);
+            let one = substr.charAt(3);
+            if (ten == 1 && hundred != 0) {
+                string = string.concat(ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]);
+            } else if (ten == 1) {
+                string = string.concat(ones[thousand][thousand] + "thousand" + teens[one][one]);
+            } else if (hundred != 0) {
+                string = string.concat(ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
+            } else {
+                string = string.concat(ones[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]);
+            };
         }
     };
     console.log(string);
@@ -99,4 +120,4 @@ const letterCounter = (m, n) => {
 
 };
 
-console.log(letterCounter(99, 121));
+console.log(letterCounter(-1120, 1121));

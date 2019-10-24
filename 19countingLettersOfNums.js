@@ -114,18 +114,29 @@ const letterCounter = (m, n) => {
         }
         else if (i < 100000) {
             let substr = i.toString();
-            let tenthousand = substr.charAt(1);
+            let tenthousand = substr.charAt(0);
+            let thousand = substr.charAt(1);
             let hundred = substr.charAt(2);
             let ten = substr.charAt(3);
             let one = substr.charAt(4);
-            if (ten == 1 && hundred != 0) {
-                string = string.concat(teens[tenthousand][tenthousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]);
+            if (tenthousand == 1 && hundred != 0 && ten == 1) {
+                string = string.concat(teens[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]);
+            } else if (tenthousand == 1 && hundred != 0) {
+                string = string.concat(teens[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
+            } else if (tenthousand == 1 && ten == 1) {
+                string = string.concat(teens[thousand][thousand] + "thousand" + teens[one][one]);
+            } else if (tenthousand == 1) {
+                string = string.concat(teens[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]);
+            }
+
+            else if (ten == 1 && hundred != 0) {
+                string = string.concat(tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + teens[one][one]);
             } else if (ten == 1) {
-                string = string.concat(teens[tenthousand][tenthousand] + "thousand" + teens[one][one]);
+                string = string.concat(tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + teens[one][one]);
             } else if (hundred != 0) {
-                string = string.concat(teens[tenthousand][tenthousand] + "thousand" + ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
+                string = string.concat(tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + ones[hundred][hundred] + "hundred" + tens[ten][ten] + ones[one][one]);
             } else {
-                string = string.concat(teens[tenthousand][tenthousand] + "thousand" + tens[ten][ten] + ones[one][one]);
+                string = string.concat(tens[tenthousand][tenthousand] + ones[thousand][thousand] + "thousand" + tens[ten][ten] + ones[one][one]);
             };
         }
         else if (i < 1000000) {
@@ -165,4 +176,6 @@ const letterCounter = (m, n) => {
 
 };
 
-console.log(letterCounter(1, 10));
+// console.log(letterCounter(81811, 81819));
+console.log(letterCounter("cat", "9"));
+// Expected 315, gets 288

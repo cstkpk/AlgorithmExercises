@@ -8,25 +8,25 @@ const largestPrimeFactor = number => {
     let isPrime = true;
     for (let i = 0; i <= number; i++) {
         if (number % i === 0) {
-            console.log("I " + i);
+            // console.log("I " + i);
             isPrime = true;
             for (let j = 2; j < i; j++) {
                 if (i % j === 0) {
                     isPrime = false;
-                    console.log(isPrime);
-                    console.log(j);
-                    console.log("----------");
+                    // console.log(isPrime);
+                    // console.log(j);
+                    // console.log("----------");
                 }
             }
             if (isPrime) {
                 largest = i;
-                console.log("New largest: " + largest);
+                // console.log("New largest: " + largest);
             }
         }
     }
     return largest;
 };
 
-console.log(largestPrimeFactor(100));
+console.log(largestPrimeFactor(600851475));
 
 // Fun fact: 20,719 is a prime number
